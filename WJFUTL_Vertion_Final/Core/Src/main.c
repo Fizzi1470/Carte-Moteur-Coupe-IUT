@@ -59,7 +59,7 @@ StateType currentState = STATE_stop;
 #define ECART_ROUE_MM 230//11.25
 // en ... jsp
 
-volatile statut_odometrie_t statut_odometrie = { 0 }, precedent_statut = {0};
+volatile statut_odometrie_t statut_odometrie = { 0 }, precedent_statut = { .x = 155, .y = 155};
 
 uint16_t tick_d_precedent = 32768;   // ou 32 440
 uint16_t tick_g_precedent = 32768;
