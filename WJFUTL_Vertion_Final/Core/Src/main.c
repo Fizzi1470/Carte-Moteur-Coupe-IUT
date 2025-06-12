@@ -50,9 +50,9 @@ StateType currentState = STATE_stop;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define PERIMETRE_ROUE_MM (53,5*M_PI)                                   // modifier le 51.78 = diametre si nouvelle roues
+#define PERIMETRE_ROUE_MM (53*M_PI)                                   // modifier le 51.78 = diametre si nouvelle roues
 #define TICK_PAR_TOUR 2048                                               // l'encodeur s'incrémente 2000 fois par tour
-#define DIAMETRE_ENTRE_LES_ROUES 0.229                                   //en mm
+#define DIAMETRE_ENTRE_LES_ROUES 0.234                                   //en mm
 #define PERIMETRE_CERCLE_ENTRE_LES_ROUES (DIAMETRE_ENTRE_LES_ROUES*M_PI) // perimetre en mm
 #define TE 0.01                                                          // en s
 #define COEF_ROUE_GAUCHE 0.978
@@ -108,8 +108,8 @@ bool mouvement_rotation = 0;
 bool mouvement_reculer = 0;
 bool rotation = 0;
 
-float coef_droit = 1;
-float coef_gauche = 1;
+float coef_droit = 1.009;
+float coef_gauche = 1.009;
 
 int AV = 0;
 
@@ -552,6 +552,9 @@ int main(void) {
 			if (tirette == 1) {
 				send_val_tirette_mise();
 			} else {
+
+				start_roue_droite_mm = statut_odometrie.dist_roue_droite_mm;
+				start_roue_gauche_mm = statut_odometrie.dist_roue_gauche_mm;
 				send_val_tirette_retiree();
 			}
 		}
