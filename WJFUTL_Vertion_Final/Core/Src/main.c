@@ -50,12 +50,12 @@ StateType currentState = STATE_stop;
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define PERIMETRE_ROUE_MM (52*M_PI)                                   // modifier le 51.78 = diametre si nouvelle roues
+#define PERIMETRE_ROUE_MM (53,5*M_PI)                                   // modifier le 51.78 = diametre si nouvelle roues
 #define TICK_PAR_TOUR 2048                                               // l'encodeur s'incrémente 2000 fois par tour
 #define DIAMETRE_ENTRE_LES_ROUES 0.229                                   //en mm
 #define PERIMETRE_CERCLE_ENTRE_LES_ROUES (DIAMETRE_ENTRE_LES_ROUES*M_PI) // perimetre en mm
 #define TE 0.01                                                          // en s
-#define COEF_ROUE_GAUCHE 0.988
+#define COEF_ROUE_GAUCHE 0.978
 #define ECART_ROUE_MM 230//11.25
 // en ... jsp
 
