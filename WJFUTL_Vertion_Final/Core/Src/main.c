@@ -43,7 +43,7 @@ typedef struct {
 } statut_odometrie_t;
 
 typedef enum {
-	STATE_stop, STATE_acc, STATE_dec, STATE_const
+	STATE_stop, STATE_acc, STATE_dec, STATE_const, STATE_arriver
 } StateType;
 StateType currentState = STATE_stop;
 /* USER CODE END PTD */
@@ -411,6 +411,10 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 
 		//declenchement_automate(0, 0, 0);
 	}
+	if (RxHeader.Identifier == 0x002) //_______________________________________________________arriver
+	{
+		currentState = STATE_arriver;
+	}
 	if (RxHeader.Identifier == 0x210) //_______________________________________________________tirette
 			{
 		tirette = HAL_GPIO_ReadPin(tirette_GPIO_Port, tirette_Pin);
@@ -562,6 +566,12 @@ int main(void) {
 		if (flag_periode_tim7 == 1 && tirette == false){
 			if (tirette == false) {
 				switch (currentState) {
+				//___________________________________________________________________________________________________________ARRIVER
+				case STATE_arriver:
+					__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 0);
+					__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_4, 0);
+					lever_drapeau();
+					break;
 				//___________________________________________________________________________________________________________STOP
 				case STATE_stop:
 					if (rotation == 1) {
@@ -570,7 +580,7 @@ int main(void) {
 					}
 					else {
 						asserv(0, 0);
-						lever_drapeau();
+						//lever_drapeau();
 					}
 					if (envoi_fin_auto == 2) {
 						envoi_fin_auto = 0;
