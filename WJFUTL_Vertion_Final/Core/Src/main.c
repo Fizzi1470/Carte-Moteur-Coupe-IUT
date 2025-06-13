@@ -55,7 +55,7 @@ StateType currentState = STATE_stop;
 #define DIAMETRE_ENTRE_LES_ROUES 0.234                                   //en mm
 #define PERIMETRE_CERCLE_ENTRE_LES_ROUES (DIAMETRE_ENTRE_LES_ROUES*M_PI) // perimetre en mm
 #define TE 0.01                                                          // en s
-#define COEF_ROUE_GAUCHE 0.978
+#define COEF_ROUE_GAUCHE 0.980
 #define ECART_ROUE_MM 230//11.25
 // en ... jsp
 
@@ -560,7 +560,7 @@ int main(void) {
 		}
 		//-------------------------------------------------------- fin MAJ tirette
 		//-------------------------------------------------------- envoie état tirette
-		if (nbr_cycle_10 == 10) {
+		if (nbr_cycle_10 == 1) {
 			send_odometrie();
 			nbr_cycle_10 = 0;
 		}
@@ -573,6 +573,7 @@ int main(void) {
 				case STATE_arriver:
 					__HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, 0);
 					__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_4, 0);
+					HAL_Delay(1000);
 					lever_drapeau();
 					break;
 				//___________________________________________________________________________________________________________STOP
