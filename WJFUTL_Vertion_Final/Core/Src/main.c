@@ -243,8 +243,12 @@ void send_arret_automate(void) {
 void send_odometrie(void) {
 	int16_t x = lroundf(statut_odometrie.x);
 	int16_t y = lroundf(statut_odometrie.y);
-	float angle = -statut_odometrie.angle_rad * 180.f / M_PI * 100.0f;
-	int16_t t = lroundf(angle);
+	float angle = -statut_odometrie.angle_rad * 180.f / M_PI;
+
+	while(angle > 180.0) angle -= 360.0;
+	while(angle < -180.0) angle += 360.0;
+
+	int16_t t = lroundf(angle * 100.0f);
 
 	int16_t v = vitesse * 1000;
 	uint8_t data_odo[8];
@@ -403,7 +407,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		floatValue_angle = (float) uintValue_angle;
 		rotation = 1;
 
-		declenchement_automate(floatValue_angle / 100.0, 0.2, rotation);
+		declenchement_automate(floatValue_angle / 10.0, 0.2, rotation);
 	}
 	if (RxHeader.Identifier == 0x005) //_______________________________________________________stop
 	{

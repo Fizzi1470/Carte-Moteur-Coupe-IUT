@@ -63,8 +63,8 @@ all: main-build
 main-build: AMEC_prog.elf secondary-outputs
 
 # Tool invocations
-AMEC_prog.elf AMEC_prog.map: $(OBJS) $(USER_OBJS) C:\Users\Leon\Documents\GitHub\Carte-Moteur-Coupe-IUT\WJFUTL_Vertion_Final\STM32G431KBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "AMEC_prog.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"C:\Users\Leon\Documents\GitHub\Carte-Moteur-Coupe-IUT\WJFUTL_Vertion_Final\STM32G431KBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AMEC_prog.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+AMEC_prog.elf AMEC_prog.map: $(OBJS) $(USER_OBJS) E:\Github\Carte-Moteur-Coupe-IUT\WJFUTL_Vertion_Final\STM32G431KBTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "AMEC_prog.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"E:\Github\Carte-Moteur-Coupe-IUT\WJFUTL_Vertion_Final\STM32G431KBTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="AMEC_prog.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
