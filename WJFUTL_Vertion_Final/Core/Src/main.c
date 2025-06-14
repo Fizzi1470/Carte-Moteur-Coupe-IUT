@@ -411,7 +411,14 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 	}
 	if (RxHeader.Identifier == 0x005) //_______________________________________________________stop
 	{
-		if(currentState == STATE_acc || currentState == STATE_const) currentState = STATE_dec;
+		if(currentState == STATE_acc || currentState == STATE_const){
+			if(rotation == 1){ // si on est en rotation (donc avant une trsl)
+				rotation = 0; // alors on met rotation à 0 pour pas qu'il déclenche la translation
+				envoi_fin_auto = 1; // et on met ça a 1 pour que quand la rotation se finisse et qu'il l'incremente, il envoie un move end
+			} else {
+				currentState = STATE_dec;
+			}
+		}
 
 		//declenchement_automate(0, 0, 0);
 	}
